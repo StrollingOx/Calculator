@@ -8,22 +8,25 @@
     android:orientation="vertical"
     android:layout_alignParentBottom="true">
 
-
-    <EditText
-        android:id="@+id/editText"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/table"
-        android:background="#DCDCDC"
+        android:fillViewport="true">
 
-        android:gravity="bottom"
-        android:inputType="numberSigned|numberDecimal"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:text="0"
-        android:textDirection="rtl"
-        android:textSize="42sp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DCDCDC"
 
+            android:gravity="bottom"
+            android:inputType="numberSigned|numberDecimal"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:text="0"
+            android:textDirection="rtl"
+            android:textSize="42sp" />
+    </ScrollView>
 
     <TableLayout
         android:id="@+id/table"
