@@ -30,18 +30,19 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 vb.vibrate(5);
-                showSimple();
+                goToSimple();
             }
         });
     }
 
     void initButtons()
     {
-        bSimple = findViewById(R.id.button0);
+        bSimple = (Button) findViewById(R.id.button0);
     }
 
-    void showSimple()
+    void goToSimple()
     {
-     
+        Intent intent = new Intent(this, SimpleActivity.class);
+        startActivity(intent);
     }
 }
