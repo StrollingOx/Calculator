@@ -8,17 +8,16 @@
     android:orientation="vertical"
     android:layout_alignParentBottom="true">
 
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_above="@id/table"-->
-        <!--android:fillViewport="true">-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/table"
+        android:fillViewport="true">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/table"
+            android:layout_height="wrap_content"
             android:background="#DCDCDC"
 
             android:gravity="bottom|right"
@@ -26,11 +25,10 @@
             android:paddingStart="10dp"
             android:paddingBottom="10dp"
             android:text="@string/_0"
-            android:maxLines="2"
-            android:maxLength="17"
+            android:maxLength="15"
             android:textSize="42sp" />
     <!--android:textDirection="rtl"-->
-    <!--</ScrollView>-->
+    </ScrollView>
 
     <TableLayout
         android:id="@+id/table"
@@ -290,6 +288,7 @@
                 android:layout_weight="1"
                 android:height="70dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickDot"
                 android:text="@string/sign_dot"
                 android:textSize="21sp" />
 
