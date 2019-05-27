@@ -22,6 +22,8 @@ public class SimpleActivity extends AppCompatActivity
     private String currentOperator = "";
     private String result = "";
 
+    private String divideByZeroErr = "Dividing by 0 is prohibited!";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -102,7 +104,11 @@ public class SimpleActivity extends AppCompatActivity
         if(!result.equals(""))
         {
             //First number will be previous equation's result
-            String _display = result;
+            String _display;
+            if(display.equals(divideByZeroErr))
+                _display = "0";
+            else
+                _display = result;
             clear();
             display = _display;
         }
@@ -258,7 +264,10 @@ public class SimpleActivity extends AppCompatActivity
             case "÷":
                 try
                 {
-                    return Double.valueOf((BDa.divide(BDb, new MathContext(8, RoundingMode.HALF_UP))).toString());
+                    if(BDb.compareTo(BigDecimal.ZERO) != 0)
+                        return Double.valueOf((BDa.divide(BDb, new MathContext(8, RoundingMode.HALF_UP))).toString());
+                    else
+                        display = divideByZeroErr;
                 }catch(Exception e)
                 {
                     Log.d("Calc", e.getMessage());
@@ -304,6 +313,9 @@ public class SimpleActivity extends AppCompatActivity
         //TODO: Split display to two TextViews and change color for result operation
         if(display.equals("")) return;
         if(!getResult()) return;
-        screen.setText(display + "\n= " + String.valueOf(result));
+        if(display.equals(divideByZeroErr))
+            screen.setText(display);
+        else
+            screen.setText(display + "\n= " + String.valueOf(result));
     }
 }
