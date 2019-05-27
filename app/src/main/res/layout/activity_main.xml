@@ -16,13 +16,13 @@
         android:textColor="@android:color/holo_green_dark"
         android:textSize="28dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="150dp"/>
 
     <Button
         android:id="@+id/button0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button0"
+        android:text="Simple Calculator"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp" />
@@ -31,7 +31,7 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button1"
+        android:text="Advanced Calculator"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="350dp" />
@@ -40,7 +40,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button2"
+        android:text="Me"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp" />

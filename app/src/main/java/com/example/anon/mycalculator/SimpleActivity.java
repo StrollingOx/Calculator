@@ -50,7 +50,12 @@ public class SimpleActivity extends AppCompatActivity
 
         if(!currentOperator.equals(""))
         {
-            String [] numbers = display.split(Pattern.quote(currentOperator));
+            String _display = display;
+            if(currentOperator.equals("-") && display.charAt(0) == '-')
+            {
+                _display = display.substring(1);
+            }
+            String [] numbers = _display.split(Pattern.quote(currentOperator));
 
             if(numbers.length>1)
             {
@@ -168,7 +173,12 @@ public class SimpleActivity extends AppCompatActivity
 
         if(!currentOperator.equals(""))
         {
-            String [] numbers = display.split(Pattern.quote(currentOperator));
+            String _display = display;
+            if(currentOperator.equals("-") && display.charAt(0) == '-')
+            {
+                _display = display.substring(1);
+            }
+            String [] numbers = _display.split(Pattern.quote(currentOperator));
 
             if(numbers.length>1)
                 if (numbers[1].contains("."))
@@ -208,6 +218,7 @@ public class SimpleActivity extends AppCompatActivity
     {
         if(!display.equals("") && display.charAt(display.length()-1) == '\n')
         {
+            //TODO: Kinda gay.
             display = deleteLastChar(display);
             display = deleteLastChar(display);
             display = deleteLastChar(display);
@@ -224,6 +235,25 @@ public class SimpleActivity extends AppCompatActivity
                 display = deleteLastChar(display);
         }
         updateScreen();
+
+    }
+
+    public void onClickPercent(View v)
+    {
+
+        if(display.equals(""))
+        {
+            return;
+        }
+        else if (currentOperator.equals("") && !display.equals(""))
+        {
+
+        }
+        else if(!currentOperator.equals(""))
+        {
+
+        }
+
 
     }
 
@@ -292,9 +322,7 @@ public class SimpleActivity extends AppCompatActivity
         }
 
         //CASE: There are two numbers
-        String[] operation;
-
-        operation = display.replaceAll("\\s+", "").split(Pattern.quote(currentOperator));
+        String[] operation = display.replaceAll("\\s+", "").split(Pattern.quote(currentOperator));
 
         if(operation.length<2) return false;
 
