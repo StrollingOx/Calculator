@@ -240,21 +240,65 @@ public class SimpleActivity extends AppCompatActivity
 
     public void onClickPercent(View v)
     {
+        double number;
 
+        if(!result.equals(""))
+        {
+            number = calculatePercent(result);
+            clear();
+            display+=number;
+            updateScreen();
+            return;
+        }
         if(display.equals(""))
         {
             return;
         }
         else if (currentOperator.equals("") && !display.equals(""))
         {
-
+            number = calculatePercent(display);
+            display = "" + number;
+            updateScreen();
         }
         else if(!currentOperator.equals(""))
         {
-
+            String _display = display;
+            boolean signChanged = false;
+            if(currentOperator.equals("-") && display.charAt(0) == '-')
+            {
+                _display = display.substring(1);
+                signChanged = true;
+            }
+            _display = _display.replaceAll("\n","");
+            String [] temp = _display.split(Pattern.quote(currentOperator));
+            System.out.println(temp.length);
+            switch(temp.length)
+            {
+                case 0:
+                    display = "onClickPercent error, case 0";
+                    updateScreen();
+                    break;
+                case 1:
+                    return;
+                case 2:
+                    number = calculatePercent(temp[1]);
+                    if(signChanged)
+                        display = "-"+temp[0] + "\n" + currentOperator + "\n" + number;
+                    else
+                        display = ""+temp[0] + "\n" + currentOperator + "\n" + number;
+                    updateScreen();
+                    break;
+                default:
+                    System.out.println("Cheeki Breeki!!!!!!!!!!!!!!");
+            }
         }
 
 
+    }
+
+    public double calculatePercent(String s)
+    {
+        return Double.valueOf(new BigDecimal(s).multiply(new BigDecimal(0.01), new MathContext(10, RoundingMode.HALF_UP)).toString());
     }
 
     public String deleteLastChar(String str) {
