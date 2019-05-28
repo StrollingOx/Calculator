@@ -2,6 +2,7 @@ package com.example.anon.mycalculator;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 
 public class SimpleActivity extends AppCompatActivity
 {
+    //TODO: When you switch orientation while you are in the middle of equation it resets. Why? No idea.
     private TextView screen;
     private String display = "";
     private String currentOperator = "";
@@ -33,6 +35,24 @@ public class SimpleActivity extends AppCompatActivity
         updateScreen();
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString("display", display);
+        savedInstanceState.putString("currentOperator", currentOperator);
+        savedInstanceState.putString("result", result);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        display = savedInstanceState.getString("display");
+        display = savedInstanceState.getString("currentOperator");
+        display = savedInstanceState.getString("result");
+    }
+
     protected void initLayout()
     {
         screen = (TextView)findViewById(R.id.textView);

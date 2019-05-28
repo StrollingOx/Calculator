@@ -19,4 +19,31 @@
     <string name="sign_equals">=</string>
     <string name="sign_divide">÷</string>
     <string name="sign_modulo">%</string>
+    <string name="sqrt">sqrt</string>
+    <string name="log">log</string>
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="xton">xⁿ</string>
+    <string name="xto2">x²</string>
+    <string name="kappa">kappa</string>
+    <string name="sometextaboutme">*sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    *sample text**sample text**sample text**sample text**sample text*
+    </string>
+    <string name="creatorname">Author: Antoni Urbaniak</string>
+    <string name="me">Me</string>
+    <string name="advanced_calculator">Advanced Calculator</string>
+    <string name="simple_calculator">Simple Calculator</string>
+    <string name="leave_app">EXIT</string>
 </resources>

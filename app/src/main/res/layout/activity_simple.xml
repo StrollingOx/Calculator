@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:background="#DCDCDC"
 
+            android:freezesText="true"
+
             android:gravity="bottom|right"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"

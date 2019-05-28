@@ -22,25 +22,34 @@
         android:id="@+id/button0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Simple Calculator"
+        android:text="@string/simple_calculator"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp" />
+        android:layout_marginTop="250dp" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Advanced Calculator"
+        android:text="@string/advanced_calculator"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp" />
+        android:layout_marginTop="300dp" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Me"
+        android:text="@string/me"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp" />
+
+    <Button
+        android:id="@+id/button_EXIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leave_app"
         android:textColor="@android:color/holo_green_dark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp" />
