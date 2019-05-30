@@ -49,8 +49,8 @@ public class SimpleActivity extends AppCompatActivity
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         display = savedInstanceState.getString("display");
-        display = savedInstanceState.getString("currentOperator");
-        display = savedInstanceState.getString("result");
+        currentOperator = savedInstanceState.getString("currentOperator");
+        result = savedInstanceState.getString("result");
     }
 
     protected void initLayout()
@@ -291,7 +291,6 @@ public class SimpleActivity extends AppCompatActivity
             }
             _display = _display.replaceAll("\n","");
             String [] temp = _display.split(Pattern.quote(currentOperator));
-            System.out.println(temp.length);
             switch(temp.length)
             {
                 case 0:
@@ -341,6 +340,14 @@ public class SimpleActivity extends AppCompatActivity
     }
     private double operate (String aa, String bb,@NonNull String op)
     {
+        if (aa.equals("")
+                || bb.equals("")
+                || display.equals("Infinity")
+                || aa.equals("-")
+                || aa.endsWith("E")
+                || bb.equals("E"))
+            return 0;
+
         double a = Double.valueOf(aa);
         BigDecimal BDa = new BigDecimal(aa);
 
