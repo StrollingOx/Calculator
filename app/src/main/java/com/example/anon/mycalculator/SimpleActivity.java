@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 
 public class SimpleActivity extends AppCompatActivity
 {
-    //TODO: When you switch orientation while you are in the middle of equation it resets. Why? No idea.
     private TextView screen;
     private String display = "";
     private String currentOperator = "";
@@ -78,10 +77,7 @@ public class SimpleActivity extends AppCompatActivity
             String [] numbers = _display.split(Pattern.quote(currentOperator));
 
             if(numbers.length>1)
-            {
-                if (numbers[1].length() > 13) return false;
-                else return true;
-            }
+                return numbers[1].length() <= 13;
             else
                 return true;
 
@@ -340,13 +336,7 @@ public class SimpleActivity extends AppCompatActivity
     }
     private double operate (String aa, String bb,@NonNull String op)
     {
-        if (aa.equals("")
-                || bb.equals("")
-                || display.equals("Infinity")
-                || aa.equals("-")
-                || aa.endsWith("E")
-                || bb.equals("E"))
-            return 0;
+        if(operateHandleErrors(aa, bb, op)) return 0;
 
         double a = Double.valueOf(aa);
         BigDecimal BDa = new BigDecimal(aa);
@@ -378,6 +368,17 @@ public class SimpleActivity extends AppCompatActivity
                 return -1;
         }
     }
+
+    private boolean operateHandleErrors(String aa, String bb, String op)
+    {
+        return aa.equals("")
+                || bb.equals("")
+                || display.equals("Infinity")
+                || aa.equals("-")
+                || aa.endsWith("E")
+                || bb.equals("E");
+    }
+
     private boolean getResult()
     {
         boolean changeSign = false;

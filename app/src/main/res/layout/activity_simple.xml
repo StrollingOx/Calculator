@@ -45,7 +45,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button_C"
+                android:id="@+id/button_AC"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_margin="1px"
@@ -53,12 +53,12 @@
                 android:height="70dp"
                 android:background="#F3F3F3"
                 android:onClick="onClickClear"
-                android:text="@string/c"
+                android:text="@string/ac"
                 android:textColor="#FFC02E"
                 android:textSize="21sp" />
 
             <ImageButton
-                android:id="@+id/button_AC"
+                android:id="@+id/button_C"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_margin="1px"

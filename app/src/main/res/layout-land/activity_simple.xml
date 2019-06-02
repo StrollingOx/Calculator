@@ -53,7 +53,7 @@
                 android:height="35dp"
                 android:background="#F3F3F3"
                 android:onClick="onClickClear"
-                android:text="@string/c"
+                android:text="@string/ac"
                 android:textColor="#FFC02E"
                 android:textSize="21sp" />
 

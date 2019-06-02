@@ -51,7 +51,8 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="@string/sqrt" />
+                android:onClick="onClickLn"
+                android:text="@string/ln" />
 
             <Button
                 android:id="@+id/button_log"
@@ -62,6 +63,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickLog"
                 android:text="@string/log" />
 
             <Button
@@ -73,6 +75,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickSin"
                 android:text="@string/sin" />
 
             <Button
@@ -84,6 +87,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickCos"
                 android:text="@string/cos" />
 
             <Button
@@ -95,6 +99,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickTan"
                 android:text="@string/tan" />
         </TableRow>
 
@@ -107,15 +112,15 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_margin="1px"
+                android:layout_marginTop="-6px"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="@string/xton"
-                android:textSize="21sp" />
+                android:onClick="onClickSqrt"
+                android:text="@string/sqrt" />
 
             <Button
-                android:id="@+id/button_C_adv"
+                android:id="@+id/button_AC_adv"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -123,12 +128,13 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="@string/c"
+                android:onClick="onClickClear"
+                android:text="@string/ac"
                 android:textColor="#FFC02E"
                 android:textSize="21sp" />
 
             <ImageButton
-                android:id="@+id/button_AC_adv"
+                android:id="@+id/button_C_adv"
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_margin="1px"
@@ -137,6 +143,7 @@
                 android:background="#F3F3F3"
                 android:maxHeight="60dp"
                 android:minHeight="60dp"
+                android:onClick="onClickDelete"
                 android:tint="@android:color/holo_orange_dark"
                 app:srcCompat="@android:drawable/ic_input_delete" />
 
@@ -149,6 +156,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickPercent"
                 android:text="@string/sign_modulo"
                 android:textSize="21sp" />
 
@@ -161,6 +169,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickOperator"
                 android:text="@string/sign_divide"
                 android:textSize="21sp" />
         </TableRow>
@@ -174,12 +183,12 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_margin="1px"
+                android:layout_marginTop="-6px"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="@string/xto2"
-                android:textSize="21sp" />
+                android:onClick="onClickX2"
+                android:text="@string/xto2" />
 
             <Button
                 android:id="@+id/button14_adv"
@@ -190,6 +199,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_7"
                 android:textSize="21sp" />
 
@@ -202,6 +212,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_8"
                 android:textSize="21sp" />
 
@@ -214,6 +225,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_9"
                 android:textSize="21sp" />
 
@@ -226,6 +238,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickOperator"
                 android:text="@string/x"
                 android:textSize="21sp" />
         </TableRow>
@@ -239,12 +252,12 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_margin="1px"
+                android:layout_marginTop="-6px"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="@string/kappa"
-                android:textSize="21sp" />
+                android:onClick="onClickXn"
+                android:text="@string/xton" />
 
             <Button
                 android:id="@+id/button18_adv"
@@ -255,6 +268,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_4"
                 android:textSize="21sp" />
 
@@ -267,6 +281,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_5"
                 android:textSize="21sp" />
 
@@ -279,6 +294,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_6"
                 android:textSize="21sp" />
 
@@ -291,6 +307,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickOperator"
                 android:text="@string/sign_subtract"
                 android:textSize="21sp" />
         </TableRow>
@@ -304,12 +321,11 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_margin="1px"
+                android:layout_marginTop="-6px"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="kappa"
-                android:textSize="21sp" />
+                android:text="kappa" />
 
             <Button
                 android:id="@+id/button22_adv"
@@ -320,6 +336,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_1"
                 android:textSize="21sp" />
 
@@ -332,6 +349,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_2"
                 android:textSize="21sp" />
 
@@ -344,6 +362,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_3"
                 android:textSize="21sp" />
 
@@ -356,6 +375,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickOperator"
                 android:text="@string/sing_add"
                 android:textSize="21sp" />
         </TableRow>
@@ -369,12 +389,11 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_margin="1px"
+                android:layout_marginTop="-6px"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:text="kappa"
-                android:textSize="21sp" />
+                android:text="kappa" />
 
             <Button
                 android:id="@+id/button_sign_adv"
@@ -385,6 +404,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickSignChange"
                 android:text="@string/change_sign"
                 android:textColor="#FFC02E"
                 android:textSize="21sp" />
@@ -398,6 +418,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickNumber"
                 android:text="@string/_0"
                 android:textSize="21sp" />
 
@@ -410,6 +431,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
+                android:onClick="onClickDot"
                 android:text="@string/sign_dot"
                 android:textSize="21sp" />
 
@@ -422,6 +444,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#FFA40A"
+                android:onClick="onClickEqual"
                 android:text="@string/sign_equals"
                 android:textColor="@android:color/white"
                 android:textSize="21sp" />
