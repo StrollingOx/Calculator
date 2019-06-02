@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //TODO: instead of new activity just show a toast
         bAboutMe.setOnClickListener(new View.OnClickListener(){
 
             @Override

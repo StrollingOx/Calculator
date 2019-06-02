@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,7 +23,11 @@ public class AdvancedActivity extends AppCompatActivity
     private String currentOperator = "";
     private String result = "";
 
-    private String divideByZeroErr = "Dividing by 0 is prohibited!";
+    Toast toastError;
+    Toast toastTooBigNumber;
+    Toast toastDivideByZero;
+    Toast toastNoNumber;
+    Toast toastCantInsertDot;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -30,6 +35,7 @@ public class AdvancedActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
         initLayout();
+        initToasts();
         updateScreen();
 
     }
@@ -51,6 +57,20 @@ public class AdvancedActivity extends AppCompatActivity
         result = savedInstanceState.getString("result");
     }
 
+
+    //advanced calculator-----------------------
+    public void onClickLn(View v)
+    {
+        return;
+    }
+    public void onClickLog(View v){return; }
+    public void onClickSin(View v){return; }
+    public void onClickCos(View v){return; }
+    public void onClickTan(View v){return; }
+    public void onClickXn(View v){return;}
+    public void onClickX2(View v){return;}
+    public void onClickSqrt(View v){return;}
+
     protected void initLayout()
     {
         screen = (TextView)findViewById(R.id.textView_adv);
@@ -59,11 +79,21 @@ public class AdvancedActivity extends AppCompatActivity
     {
         screen.setText(display);
     }
+    //------------------------------------------
 
+    @SuppressLint("ShowToast")
+    private void initToasts()
+    {
+        toastError = Toast.makeText(this, "Equation incorrect, result changed to 0.", Toast.LENGTH_SHORT);
+        toastTooBigNumber = Toast.makeText(this, "The number is too big!", Toast.LENGTH_SHORT);
+        toastDivideByZero = Toast.makeText(this, "Dividing by 0 is prohibited!", Toast.LENGTH_SHORT);
+        toastNoNumber = Toast.makeText(this, "Enter the number first!", Toast.LENGTH_SHORT);
+        toastCantInsertDot = Toast.makeText(this, "You dont need this dot :)", Toast.LENGTH_SHORT);
+    }
     private boolean isNumbersLengthCorrect()
     {
         if(currentOperator.equals("") && display.length()>13)
-            return false;
+            return true;
 
         if(!currentOperator.equals(""))
         {
@@ -75,13 +105,13 @@ public class AdvancedActivity extends AppCompatActivity
             String [] numbers = _display.split(Pattern.quote(currentOperator));
 
             if(numbers.length>1)
-                return numbers[1].length() <= 13;
+                return numbers[1].length() > 13;
             else
-                return true;
+                return false;
 
         }
 
-        return true;
+        return false;
     }
     private boolean isOperator(char op)
     {
@@ -96,7 +126,7 @@ public class AdvancedActivity extends AppCompatActivity
     }
     private boolean canInsertDot()
     {
-        if(!isNumbersLengthCorrect())
+        if(isNumbersLengthCorrect())
             return false;
 
         if(currentOperator.equals("") && display.contains("."))
@@ -130,8 +160,25 @@ public class AdvancedActivity extends AppCompatActivity
         }
         return str;
     }
-    private boolean operateHandleErrors(String aa, String bb, String op)
+    private void handleEAndEMinusError()
     {
+
+        //CASE: First number ends with "E" or "E-"
+        if(display.contains("E\n" + currentOperator))
+            display = display.replaceFirst("E\n", "");
+        if(display.contains("E-\n" + currentOperator))
+            display = display.replaceFirst("E-\n", "");
+
+        //CASE: Ends with "E" or "E-"
+        if(display.endsWith("E"))
+            display = display.substring(0, display.length()-1);
+        if(display.endsWith("E-"))
+            display = display.substring(0, display.length()-2);
+    }
+    private boolean temporaryHandleForWierdErrors(String aa, String bb, String op)
+    {
+        Log.d("temporaryHandle(...)", "Error occured");
+
         return aa.equals("")
                 || bb.equals("")
                 || display.equals("Infinity")
@@ -147,7 +194,11 @@ public class AdvancedActivity extends AppCompatActivity
     }
     private double operate (String aa, String bb,@NonNull String op)
     {
-        if(operateHandleErrors(aa, bb, op)) return 0;
+        if(temporaryHandleForWierdErrors(aa, bb, op))
+        {
+            toastError.show();
+            return 0;
+        }
 
         double a = Double.valueOf(aa);
         BigDecimal BDa = new BigDecimal(aa);
@@ -168,11 +219,9 @@ public class AdvancedActivity extends AppCompatActivity
                 {
                     if(BDb.compareTo(BigDecimal.ZERO) != 0)
                         return Double.valueOf((BDa.divide(BDb, new MathContext(8, RoundingMode.HALF_UP))).toString());
-                    else
-                        display = divideByZeroErr;
                 }catch(Exception e)
                 {
-                    Log.d("Calc", e.getMessage());
+                    Log.d("operate()", e.getMessage());
                 }
 
             default:
@@ -188,8 +237,9 @@ public class AdvancedActivity extends AppCompatActivity
             clear();
             updateScreen();
         }
-        if(!isNumbersLengthCorrect())
+        if(isNumbersLengthCorrect())
         {
+            toastTooBigNumber.show();
             return;
         }
 
@@ -202,7 +252,11 @@ public class AdvancedActivity extends AppCompatActivity
     }
     public void onClickOperator(View v)
     {
-        if(display.equals("")) return;
+        if(display.equals(""))
+        {
+            toastNoNumber.show();
+            return;
+        }
 
         Button button = (Button) v;
 
@@ -210,19 +264,17 @@ public class AdvancedActivity extends AppCompatActivity
         {
             //First number will be previous equation's result
             String _display;
-            if(display.equals(divideByZeroErr))
-                _display = "0";
-            else
-                _display = result;
+            _display = result;
             clear();
             display = _display;
         }
 
         if(!currentOperator.equals(""))
         {
-            if(isOperator(display.charAt(display.length()-2)))
+            if(isOperator(display.charAt(display.length()-2))
+                    && !(display.charAt(display.length()-3) == 'E'))
             {
-                display = display.replace(display.charAt(display.length() - 2), button.getText().charAt(0));
+                display = display.substring(0,display.length()-2) + button.getText().charAt(0) + "\n";
                 currentOperator = button.getText().toString();
                 updateScreen();
                 return;
@@ -239,10 +291,9 @@ public class AdvancedActivity extends AppCompatActivity
         currentOperator = button.getText().toString();
         updateScreen();
     }
-
-
     public void onClickDot(View v)
     {
+        boolean insertToast = true;
         if(!result.equals(""))
         {
             //First number will be previous equation's result
@@ -254,24 +305,29 @@ public class AdvancedActivity extends AppCompatActivity
         if(display.equals("")
                 || (!currentOperator.equals("")
                 && display.charAt(display.length()-2) == currentOperator.charAt(0))) //-2 instead of -1 beacuse of the '\n'
+        {
+            insertToast = false;
             display+="0.";
+        }
 
         if(canInsertDot())
-        {
             display+=".";
-        }
+        else
+        if(insertToast) toastCantInsertDot.show();
+
+
 
         updateScreen();
     }
     public void onClickSignChange (View v)
     {
         if(!result.equals(""))
-        {
             return;
-        }
+
 
         if(display.equals(""))
         {
+            toastNoNumber.show();
             return;
         }
         else
@@ -313,6 +369,7 @@ public class AdvancedActivity extends AppCompatActivity
     public void onClickPercent(View v)
     {
         double number;
+        handleEAndEMinusError();
 
         if(!result.equals(""))
         {
@@ -322,7 +379,9 @@ public class AdvancedActivity extends AppCompatActivity
             updateScreen();
             return;
         }
-        if(display.equals(""))
+        if(display.equals("")
+                || display.startsWith("\n" +currentOperator)
+                || (display.startsWith(currentOperator) && !currentOperator.equals("-")))
         {
             return;
         }
@@ -336,12 +395,19 @@ public class AdvancedActivity extends AppCompatActivity
         {
             String _display = display;
             boolean signChanged = false;
+
+            //signChange is on
             if(currentOperator.equals("-") && display.charAt(0) == '-')
             {
                 _display = display.substring(1);
                 signChanged = true;
             }
             _display = _display.replaceAll("\n","");
+
+            ///If there are E-
+            if(_display.contains("E-"))
+                _display = _display.replaceAll("E-","EMINUS");
+
             String [] temp = _display.split(Pattern.quote(currentOperator));
             switch(temp.length)
             {
@@ -352,6 +418,8 @@ public class AdvancedActivity extends AppCompatActivity
                 case 1:
                     return;
                 case 2:
+                    temp[0] = temp[0].replaceAll("EMINUS", "E-");
+                    temp[1] = temp[1].replaceAll("EMINUS", "E-");
                     number = calculatePercent(temp[1]);
                     if(signChanged)
                         display = "-"+temp[0] + "\n" + currentOperator + "\n" + number;
@@ -366,29 +434,17 @@ public class AdvancedActivity extends AppCompatActivity
 
 
     }
-
     public void onClickClear(View v)
     {
         clear();
         updateScreen();
     }
 
-
-    public void onClickLn(View v)
-    {
-        return;
-    }
-    public void onClickLog(View v){return; }
-    public void onClickSin(View v){return; }
-    public void onClickCos(View v){return; }
-    public void onClickTan(View v){return; }
-    public void onClickXn(View v){return;}
-    public void onClickX2(View v){return;}
-    public void onClickSqrt(View v){return;}
-
     private boolean getResult()
     {
         boolean changeSign = false;
+
+        handleEAndEMinusError();
 
         //CASE: Equation not empty
         if(currentOperator.equals("")) return false;
@@ -400,10 +456,34 @@ public class AdvancedActivity extends AppCompatActivity
             changeSign = true;
         }
 
+        //in case of numbers like '5.0E-4'
+        if(currentOperator.equals("-"))
+        {
+            display = display.replaceAll("E-", "EMINUS");
+            Log.d("getResult() method", "changing E- to EMINUS");
+        }
+
         //CASE: There are two numbers
         String[] operation = display.replaceAll("\\s+", "").split(Pattern.quote(currentOperator));
+        if(operation.length<2) {
+            display = display.replaceAll("EMINUS", "E-");
+            return false;
+        }
 
-        if(operation.length<2) return false;
+        operation[0] = operation[0].replaceAll("EMINUS", "E-");
+        operation[1] = operation[1].replaceAll("EMINUS", "E-");
+
+        //CASE: Dividing by 0
+        double secondNumber = Double.valueOf(operation[1]);
+        if(currentOperator.equals("÷") && secondNumber == 0.0)
+        {
+            toastDivideByZero.show();
+            display = display.replaceAll("EMINUS", "E-");
+            return false;
+        }
+
+        //TODO: Check if needed
+        display = display.replaceAll("EMINUS", "E-");
 
         if(changeSign)
         {
@@ -417,13 +497,10 @@ public class AdvancedActivity extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     public void onClickEqual(View v)
     {
-        //TODO: Split display to two TextViews and change color for result operation
+        //TODO: Split display to two TextViews and change color for result operation?
         if(display.equals("")) return;
         if(!getResult()) return;
-        if(display.equals(divideByZeroErr))
-            screen.setText(display);
-        else
-            screen.setText(display + "\n= " + String.valueOf(result));
+        screen.setText(display + "\n= " + String.valueOf(result));
     }
 
 }
