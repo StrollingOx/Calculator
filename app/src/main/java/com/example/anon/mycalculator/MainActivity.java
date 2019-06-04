@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity
 
     Vibrator vb;
 
+    Toast aboutMe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initButtons();
         vb = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        aboutMe = Toast.makeText(this, "Author: Antoni Urbaniak, 202323", Toast.LENGTH_LONG);
 
         bSimple.setOnClickListener(new View.OnClickListener(){
 
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 vb.vibrate(5);
-                goToAboutMe();
+                aboutMe.show();
             }
         });
 

@@ -28,6 +28,9 @@ public class AdvancedActivity extends AppCompatActivity
     Toast toastDivideByZero;
     Toast toastNoNumber;
     Toast toastCantInsertDot;
+    Toast toastCantSqrtThat;
+    Toast toastLogOneOrNegative;
+    Toast toastLnOneOrNegative;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -61,15 +64,287 @@ public class AdvancedActivity extends AppCompatActivity
     //advanced calculator-----------------------
     public void onClickLn(View v)
     {
-        return;
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+                a = Double.valueOf(result);
+            else
+                a = Double.valueOf(display);
+            if(a == 1.0 || a<0.0)
+            {
+                toastLnOneOrNegative.show();
+                return;
+            }
+            double result = Math.log(a);
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
     }
-    public void onClickLog(View v){return; }
-    public void onClickSin(View v){return; }
-    public void onClickCos(View v){return; }
-    public void onClickTan(View v){return; }
+    public void onClickLog(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+                a = Double.valueOf(result);
+            else
+                a = Double.valueOf(display);
+            if(a == 1.0 || a<0.0)
+            {
+                toastLogOneOrNegative.show();
+                return;
+            }
+            double result = Math.log10(Math.toRadians(a));
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
+    }
+    public void onClickSin(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+            {
+                a = Double.valueOf(result);
+                clear();
+            }
+            else
+                a = Double.valueOf(display);
+            double result = Math.sin(Math.toRadians(a));
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
+    }
+    public void onClickCos(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+            {
+                a = Double.valueOf(result);
+                clear();
+            }
+            else
+                a = Double.valueOf(display);
+            double result = Math.cos(Math.toRadians(a));
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
+    }
+    public void onClickTan(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+            {
+                a = Double.valueOf(result);
+                clear();
+            }
+            else
+                a = Double.valueOf(display);
+            double result = Math.tan(Math.toRadians(a)); //Math.tan(Math.toRadians(Double.parseDouble(calculation())));
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
+    }
     //public void onClickXn(View v){return;}
-    public void onClickX2(View v){return;}
-    public void onClickSqrt(View v){return;}
+    public void onClickSqrt(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+            {
+                a = Double.valueOf(result);
+                clear();
+            }
+            else
+                a = Double.valueOf(display);
+            if(a<0)
+            {
+                toastCantSqrtThat.show();
+                return;
+            }
+
+            double result = Math.sqrt(a);
+
+            if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+                return;
+            }
+            result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+            clear();
+            display+= ""+result;
+            updateScreen();
+
+        }
+        else
+            return;
+    }
+    public void onClickX2(View v)
+    {
+        if((!display.equals("") && currentOperator.equals(""))
+                || (screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+        {
+            double a;
+            if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
+            {
+                a = Double.valueOf(result);
+                clear();
+            }
+            else
+                a = Double.valueOf(display);
+            double result = Math.pow(a,2);
+            if(result >= Double.MAX_VALUE)
+            {
+                clear();
+                display = "∞";
+                updateScreen();
+                display = "";
+            }
+            else if (result <= Integer.MIN_VALUE)
+            {
+                clear();
+                display = "-∞";
+                updateScreen();
+                display = "";
+            }
+            else
+            {
+                result = Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
+                clear();
+                display+= ""+result;
+                updateScreen();
+            }
+        }
+        else
+            return;
+    }
+
+    //TODO: pack all above methods into this one \/
+    public void onClickAdvancedOperation(View v)
+    {
+
+    }
 
     protected void initLayout()
     {
@@ -85,10 +360,13 @@ public class AdvancedActivity extends AppCompatActivity
     private void initToasts()
     {
         toastError = Toast.makeText(this, "Equation incorrect, result changed to 0.", Toast.LENGTH_SHORT);
-        toastTooBigNumber = Toast.makeText(this, "The number is too big!", Toast.LENGTH_SHORT);
+        toastTooBigNumber = Toast.makeText(this, "The number is too big :(!", Toast.LENGTH_SHORT);
         toastDivideByZero = Toast.makeText(this, "Dividing by 0 is prohibited!", Toast.LENGTH_SHORT);
         toastNoNumber = Toast.makeText(this, "Enter the number first!", Toast.LENGTH_SHORT);
         toastCantInsertDot = Toast.makeText(this, "You dont need this dot :)", Toast.LENGTH_SHORT);
+        toastCantSqrtThat = Toast.makeText(this, "Can't square that!", Toast.LENGTH_SHORT);
+        toastLogOneOrNegative = Toast.makeText(this,"Can't Log10 from 1 or negative!", Toast.LENGTH_SHORT);
+        toastLnOneOrNegative = Toast.makeText(this,"Can't Ln from 1 or negative!", Toast.LENGTH_SHORT);
     }
 
     private boolean isNumbersLengthCorrect()
@@ -122,6 +400,7 @@ public class AdvancedActivity extends AppCompatActivity
             case '-': return true;
             case 'x': return true;
             case '÷': return true;
+            case '^': return true;
             default: return false;
         }
     }
@@ -223,8 +502,8 @@ public class AdvancedActivity extends AppCompatActivity
         switch (op)
         {
             case "^":
-                int power = Integer.valueOf(bb);
-                return Double.valueOf((BDa.pow(power, new MathContext(11, RoundingMode.HALF_UP))).toString());
+                double result = Math.pow(a,b);
+                return Double.valueOf(new BigDecimal(result, new MathContext(11, RoundingMode.HALF_UP)).toString());
             case "+":
                 return Double.valueOf((BDa.add(BDb, new MathContext(11, RoundingMode.HALF_UP))).toString());
             case "-":
@@ -303,6 +582,12 @@ public class AdvancedActivity extends AppCompatActivity
         }
 
         Button button = (Button) v;
+        String buttonTxt;
+
+        if(button.getText().equals("xⁿ"))
+            buttonTxt = "^";
+        else
+            buttonTxt = button.getText().toString();
 
         if(!result.equals(""))
         {
@@ -318,22 +603,25 @@ public class AdvancedActivity extends AppCompatActivity
             if(isOperator(display.charAt(display.length()-2))
                     && !(display.charAt(display.length()-3) == 'E'))
             {
-                display = display.substring(0,display.length()-2) + button.getText().charAt(0) + "\n";
-                currentOperator = button.getText().toString();
+                System.out.println(display);
+                display = display.substring(0,display.length()-2) + buttonTxt.charAt(0) + "\n";
+                System.out.println(display);
+                currentOperator = buttonTxt;
                 updateScreen();
                 return;
             }else
             {
-                getResult();
+                if(!getResult()) return;
                 display = result;
                 result = "";
             }
-            currentOperator = button.getText().toString();
+            currentOperator = buttonTxt;
         }
 
-        display += "\n" + button.getText() + "\n"; //TODO: If app fucks up, go to getResult() and delete replaceAll(...)
-        currentOperator = button.getText().toString();
+        display += "\n" + buttonTxt + "\n"; //TODO: If app fucks up, go to getResult() and delete replaceAll(...)
+        currentOperator = buttonTxt;
         updateScreen();
+
     }
     public void onClickDot(View v)
     {
@@ -454,8 +742,9 @@ public class AdvancedActivity extends AppCompatActivity
             switch(temp.length)
             {
                 case 0:
-                    display = "onClickPercent error, case 0";
+                    clear();
                     updateScreen();
+                    Log.d("onClickPercent error", "case 0");
                     break;
                 case 1:
                     return;
@@ -488,6 +777,8 @@ public class AdvancedActivity extends AppCompatActivity
 
         handleEAndEMinusError();
 
+
+
         //CASE: Equation not empty
         if(currentOperator.equals("")) return false;
 
@@ -509,6 +800,12 @@ public class AdvancedActivity extends AppCompatActivity
         String[] operation = display.replaceAll("\\s+", "").split(Pattern.quote(currentOperator));
         if(operation.length<2) {
             display = display.replaceAll("EMINUS", "E-");
+            return false;
+        }
+
+        //CASE: Result too big
+        if(isOverMaxInt(operation[0], operation[1], currentOperator))
+        {
             return false;
         }
 
@@ -536,6 +833,45 @@ public class AdvancedActivity extends AppCompatActivity
             result = ""+operate(operation[0], operation[1], currentOperator);
         return true;
     }
+
+    private boolean isOverMaxInt(String aa, String bb, String op)
+    {
+        double result = 0.0;
+
+        if(aa.equals("") || bb.equals(""))
+            return true;
+
+        double a = Double.valueOf(aa);
+        BigDecimal BDa = new BigDecimal(aa);
+
+        double b = Double.valueOf(bb);
+        BigDecimal BDb = new BigDecimal(bb);
+
+        if(op.equals("^"))
+            result = Math.pow(a,b);
+
+        if(result >= Double.MAX_VALUE)
+        {
+            clear();
+            display = "∞";
+            updateScreen();
+            display = "";
+            return true;
+        }
+        else if (result <= Integer.MIN_VALUE)
+        {
+            clear();
+            display = "-∞";
+            updateScreen();
+            display = "";
+            return true;
+        }
+        else
+            return false;
+
+
+    }
+
     @SuppressLint("SetTextI18n")
     public void onClickEqual(View v)
     {
