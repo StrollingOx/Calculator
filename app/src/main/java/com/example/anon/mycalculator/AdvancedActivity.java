@@ -67,7 +67,7 @@ public class AdvancedActivity extends AppCompatActivity
     public void onClickSin(View v){return; }
     public void onClickCos(View v){return; }
     public void onClickTan(View v){return; }
-    public void onClickXn(View v){return;}
+    //public void onClickXn(View v){return;}
     public void onClickX2(View v){return;}
     public void onClickSqrt(View v){return;}
 
@@ -90,6 +90,7 @@ public class AdvancedActivity extends AppCompatActivity
         toastNoNumber = Toast.makeText(this, "Enter the number first!", Toast.LENGTH_SHORT);
         toastCantInsertDot = Toast.makeText(this, "You dont need this dot :)", Toast.LENGTH_SHORT);
     }
+
     private boolean isNumbersLengthCorrect()
     {
         if(currentOperator.equals("") && display.length()>13)
@@ -152,7 +153,20 @@ public class AdvancedActivity extends AppCompatActivity
     }
     public double calculatePercent(String s)
     {
-        return Double.valueOf(new BigDecimal(s).multiply(new BigDecimal(0.01), new MathContext(10, RoundingMode.HALF_UP)).toString());
+        //Starts with pattern: non-digit character return 0.0
+        //Pattern p = Pattern.compile("\\D+"); //ENDED HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        double result;
+        try
+        {
+            result = Double.valueOf(new BigDecimal(s).multiply(new BigDecimal(0.01), new MathContext(10, RoundingMode.HALF_UP)).toString());
+        }catch(Error e)
+        {
+            Log.d("calculatePercent()", "Pin pon, exception!");
+            return 0.0;
+        }
+
+        return result;
     }
     public String deleteLastChar(String str) {
         if (str != null && str.length() > 0) {
@@ -208,12 +222,15 @@ public class AdvancedActivity extends AppCompatActivity
 
         switch (op)
         {
+            case "^":
+                int power = Integer.valueOf(bb);
+                return Double.valueOf((BDa.pow(power, new MathContext(11, RoundingMode.HALF_UP))).toString());
             case "+":
-                return Double.valueOf(BDa.add(BDb).toString());
+                return Double.valueOf((BDa.add(BDb, new MathContext(11, RoundingMode.HALF_UP))).toString());
             case "-":
-                return Double.valueOf(BDa.subtract(BDb).toString());
+                return Double.valueOf((BDa.subtract(BDb, new MathContext(11, RoundingMode.HALF_UP))).toString());
             case "x":
-                return Double.valueOf(BDa.multiply(BDb).toString());
+                return Double.valueOf((BDa.multiply(BDb, new MathContext(11, RoundingMode.HALF_UP))).toString());
             case "÷":
                 try
                 {
@@ -244,6 +261,33 @@ public class AdvancedActivity extends AppCompatActivity
         }
 
         Button button = (Button) v;
+
+        //Special case: ZERO
+        if(display.equals("0"))
+        {
+            if(button.getText().equals("0"))
+                return;
+            else
+            {
+                display = "" + button.getText();
+                updateScreen();
+                return;
+            }
+        }
+
+        if(display.endsWith(currentOperator+"\n0"))
+        {
+            if(button.getText().equals("0"))
+                return;
+            else
+            {
+                display = display.substring(0,display.length()-1) + button.getText();
+                updateScreen();
+                return;
+            }
+        }
+
+
         display += button.getText();
         updateScreen();
 
@@ -379,9 +423,7 @@ public class AdvancedActivity extends AppCompatActivity
             updateScreen();
             return;
         }
-        if(display.equals("")
-                || display.startsWith("\n" +currentOperator)
-                || (display.startsWith(currentOperator) && !currentOperator.equals("-")))
+        if(display.equals(""))
         {
             return;
         }

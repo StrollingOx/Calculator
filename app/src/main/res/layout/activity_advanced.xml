@@ -256,7 +256,7 @@
                 android:layout_weight="1"
                 android:height="60dp"
                 android:background="#F3F3F3"
-                android:onClick="onClickXn"
+                android:onClick="onClickOperator"
                 android:text="@string/xton" />
 
             <Button
