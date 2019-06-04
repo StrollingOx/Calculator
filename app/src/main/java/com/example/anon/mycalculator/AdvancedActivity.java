@@ -31,6 +31,7 @@ public class AdvancedActivity extends AppCompatActivity
     Toast toastCantSqrtThat;
     Toast toastLogOneOrNegative;
     Toast toastLnOneOrNegative;
+    Toast toastIncorrectInput;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -71,7 +72,9 @@ public class AdvancedActivity extends AppCompatActivity
             if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
                 a = Double.valueOf(result);
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickLn", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             if(a == 1.0 || a<0.0)
             {
                 toastLnOneOrNegative.show();
@@ -112,7 +115,9 @@ public class AdvancedActivity extends AppCompatActivity
             if((screen.getText()).toString().endsWith("= " + String.valueOf(result)))
                 a = Double.valueOf(result);
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickLog", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             if(a == 1.0 || a<0.0)
             {
                 toastLogOneOrNegative.show();
@@ -156,7 +161,9 @@ public class AdvancedActivity extends AppCompatActivity
                 clear();
             }
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickSin", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             double result = Math.sin(Math.toRadians(a));
             if(result >= Double.MAX_VALUE)
             {
@@ -195,7 +202,9 @@ public class AdvancedActivity extends AppCompatActivity
                 clear();
             }
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickCos", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             double result = Math.cos(Math.toRadians(a));
             if(result >= Double.MAX_VALUE)
             {
@@ -234,7 +243,9 @@ public class AdvancedActivity extends AppCompatActivity
                 clear();
             }
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickTan", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             double result = Math.tan(Math.toRadians(a)); //Math.tan(Math.toRadians(Double.parseDouble(calculation())));
             if(result >= Double.MAX_VALUE)
             {
@@ -274,7 +285,9 @@ public class AdvancedActivity extends AppCompatActivity
                 clear();
             }
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickSqrt", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             if(a<0)
             {
                 toastCantSqrtThat.show();
@@ -312,7 +325,9 @@ public class AdvancedActivity extends AppCompatActivity
                 clear();
             }
             else
-                a = Double.valueOf(display);
+            {
+                try {a = Double.valueOf(display);} catch(NumberFormatException e) { Log.d("onClickX2", "NumberFormatException"); toastIncorrectInput.show(); return; }
+            }
             double result = Math.pow(a,2);
             if(result >= Double.MAX_VALUE)
             {
@@ -367,6 +382,7 @@ public class AdvancedActivity extends AppCompatActivity
         toastCantSqrtThat = Toast.makeText(this, "Can't square that!", Toast.LENGTH_SHORT);
         toastLogOneOrNegative = Toast.makeText(this,"Can't Log10 from 1 or negative!", Toast.LENGTH_SHORT);
         toastLnOneOrNegative = Toast.makeText(this,"Can't Ln from 1 or negative!", Toast.LENGTH_SHORT);
+        toastIncorrectInput = Toast.makeText(this, "Incorrect input!", Toast.LENGTH_SHORT);
     }
 
     private boolean isNumbersLengthCorrect()
@@ -803,14 +819,14 @@ public class AdvancedActivity extends AppCompatActivity
             return false;
         }
 
+        operation[0] = operation[0].replaceAll("EMINUS", "E-");
+        operation[1] = operation[1].replaceAll("EMINUS", "E-");
+
         //CASE: Result too big
         if(isOverMaxInt(operation[0], operation[1], currentOperator))
         {
             return false;
         }
-
-        operation[0] = operation[0].replaceAll("EMINUS", "E-");
-        operation[1] = operation[1].replaceAll("EMINUS", "E-");
 
         //CASE: Dividing by 0
         double secondNumber = Double.valueOf(operation[1]);
